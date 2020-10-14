@@ -5,8 +5,10 @@ defmodule BankWeb.Router do
     plug :accepts, ["json"]
   end
 
-  scope "/api", BankWeb do
+  scope "/api/v1", BankWeb do
     pipe_through :api
+
+    post("/signin", SessionController, :create)
   end
 
   # Enables LiveDashboard only for development
