@@ -11,6 +11,13 @@ defmodule Bank.CreateUserTest do
       assert user.email == params.email
     end
 
+    @tag :skip
+    test "returns error when email is duplicated" do
+      params = %{name: "first name", email: "first@gmail.com", password: "123456"}
+      assert {:error, %Ecto.Changeset{} = changeset} = CreateUser.run(params)
+      %{email: ["has already been taken"]} = errors_on(changeset)
+    end
+
     test "returns error when name is missing" do
       params = %{name: "", email: "first@gmail.com", password: "123456"}
       assert {:error, %Ecto.Changeset{} = changeset} = CreateUser.run(params)
