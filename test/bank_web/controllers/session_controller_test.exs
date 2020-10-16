@@ -11,9 +11,15 @@ defmodule BankWeb.SessionControllerTest do
 
     test "returns 200 when user credentials are valid", %{conn: conn} do
       conn =
-        post(conn, "/api/v1/signin", %{"email" => "signin@gmail.com", "password" => "123456"})
+        post(conn, "/api/v1/signin", %{
+          "email" => "signin@gmail.com",
+          "password" => "123456"
+        })
 
-      assert %{"status" => "ok", "data" => %{"name" => "signin"}} = json_response(conn, 200)
+      assert %{
+               "status" => "ok",
+               "data" => %{"name" => "signin", "email" => "signin@gmail.com", "token" => _}
+             } = json_response(conn, 200)
     end
 
     test "returns 401 when user email is inexistent", %{conn: conn} do

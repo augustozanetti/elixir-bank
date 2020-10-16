@@ -8,7 +8,7 @@ defmodule BankWeb.SessionViewTest do
   test "render/2 return ok and user data" do
     user = params_for(:user)
 
-    assert %{status: "ok", data: %{name: user.name, email: user.email}} =
-             render("session.json", %{user: user})
+    assert %{status: "ok", data: %{name: user.name, email: user.email, token: "token"}} =
+             render("session.json", %{user: user, token: "token"})
   end
 end
